@@ -12,22 +12,22 @@ export class UserService {
   }
 
   findAll() {
-    return `This action returns all user`;
+    return this.repo.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    return this.repo.findOne(id);
   }
 
   findByEmail(email: string) {
     return this.repo.findByEmail(email);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(id: string, updateUserDto: UpdateUserDto) {
+    return this.repo.update(id, updateUserDto);
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} user`;
   }
 }

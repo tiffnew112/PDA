@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserRole } from '../generated/prisma/enums.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import * as bcrypt from 'bcryptjs';
+import { UpdateUserDto } from './dto/update-user.dto.js';
 
 @Injectable()
 export class UserRepository {
@@ -26,7 +27,22 @@ export class UserRepository {
     });
   }
 
+  findAll() {
+    return this.prisma.user.findMany();
+  }
+
+  findOne(id: string) {
+    return this.prisma.user.findFirst({ where: { id } });
+  }
+
   findByEmail(email: string) {
     return this.prisma.user.findUnique({ where: { email } });
+  }
+
+  update(id: string, data: UpdateUserDto) {
+    return this.prisma.user.update({
+      where: { id },
+      data,
+    });
   }
 }

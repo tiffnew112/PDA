@@ -10,4 +10,14 @@ export class AuthController {
   register(@Body() data: CreateUserDto) {
     return this.authService.register(data);
   }
+
+  @Post('login')
+  login(@Body() data: { email: string; password: string }) {
+    return this.authService.userLogin(data.email, data.password);
+  }
+
+  @Post('refresh')
+  refresh(@Body() data: { id: string; token: string }) {
+    return this.authService.refreshToken(data.id, data.token);
+  }
 }
