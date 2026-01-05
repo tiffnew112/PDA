@@ -16,7 +16,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: config.get<string>('JWT_SECRET') || 'fallback',
     });
-    console.log('JWT_SECRET exists:', !!config.get('JWT_SECRET'));
   }
 
   validate(payload: JwtPayload) {

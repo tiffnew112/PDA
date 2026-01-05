@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { UserModule } from './user/user.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { CoworkingSpaceModule } from './coworking-space/coworking-space.module.js';
+import { CustomLoggerModule } from './auth/common/logger/logger.module.js';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CoworkingSpaceModule } from './coworking-space/coworking-space.module.j
     UserModule,
     AuthModule,
     CoworkingSpaceModule,
+    CustomLoggerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
