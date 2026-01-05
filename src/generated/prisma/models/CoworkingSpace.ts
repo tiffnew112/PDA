@@ -36,6 +36,7 @@ export type CoworkingSpaceSumAggregateOutputType = {
 
 export type CoworkingSpaceMinAggregateOutputType = {
   id: string | null
+  ownerId: string | null
   name: string | null
   address: string | null
   description: string | null
@@ -47,6 +48,7 @@ export type CoworkingSpaceMinAggregateOutputType = {
 
 export type CoworkingSpaceMaxAggregateOutputType = {
   id: string | null
+  ownerId: string | null
   name: string | null
   address: string | null
   description: string | null
@@ -58,6 +60,7 @@ export type CoworkingSpaceMaxAggregateOutputType = {
 
 export type CoworkingSpaceCountAggregateOutputType = {
   id: number
+  ownerId: number
   name: number
   address: number
   description: number
@@ -80,6 +83,7 @@ export type CoworkingSpaceSumAggregateInputType = {
 
 export type CoworkingSpaceMinAggregateInputType = {
   id?: true
+  ownerId?: true
   name?: true
   address?: true
   description?: true
@@ -91,6 +95,7 @@ export type CoworkingSpaceMinAggregateInputType = {
 
 export type CoworkingSpaceMaxAggregateInputType = {
   id?: true
+  ownerId?: true
   name?: true
   address?: true
   description?: true
@@ -102,6 +107,7 @@ export type CoworkingSpaceMaxAggregateInputType = {
 
 export type CoworkingSpaceCountAggregateInputType = {
   id?: true
+  ownerId?: true
   name?: true
   address?: true
   description?: true
@@ -201,6 +207,7 @@ export type CoworkingSpaceGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 
 export type CoworkingSpaceGroupByOutputType = {
   id: string
+  ownerId: string
   name: string
   address: string
   description: string
@@ -236,6 +243,7 @@ export type CoworkingSpaceWhereInput = {
   OR?: Prisma.CoworkingSpaceWhereInput[]
   NOT?: Prisma.CoworkingSpaceWhereInput | Prisma.CoworkingSpaceWhereInput[]
   id?: Prisma.StringFilter<"CoworkingSpace"> | string
+  ownerId?: Prisma.StringFilter<"CoworkingSpace"> | string
   name?: Prisma.StringFilter<"CoworkingSpace"> | string
   address?: Prisma.StringFilter<"CoworkingSpace"> | string
   description?: Prisma.StringFilter<"CoworkingSpace"> | string
@@ -246,10 +254,12 @@ export type CoworkingSpaceWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"CoworkingSpace"> | Date | string
   booking?: Prisma.BookingListRelationFilter
   blockedTimes?: Prisma.BlockedTimeListRelationFilter
+  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type CoworkingSpaceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -260,6 +270,7 @@ export type CoworkingSpaceOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   booking?: Prisma.BookingOrderByRelationAggregateInput
   blockedTimes?: Prisma.BlockedTimeOrderByRelationAggregateInput
+  owner?: Prisma.UserOrderByWithRelationInput
 }
 
 export type CoworkingSpaceWhereUniqueInput = Prisma.AtLeast<{
@@ -267,6 +278,7 @@ export type CoworkingSpaceWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.CoworkingSpaceWhereInput | Prisma.CoworkingSpaceWhereInput[]
   OR?: Prisma.CoworkingSpaceWhereInput[]
   NOT?: Prisma.CoworkingSpaceWhereInput | Prisma.CoworkingSpaceWhereInput[]
+  ownerId?: Prisma.StringFilter<"CoworkingSpace"> | string
   name?: Prisma.StringFilter<"CoworkingSpace"> | string
   address?: Prisma.StringFilter<"CoworkingSpace"> | string
   description?: Prisma.StringFilter<"CoworkingSpace"> | string
@@ -277,10 +289,12 @@ export type CoworkingSpaceWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"CoworkingSpace"> | Date | string
   booking?: Prisma.BookingListRelationFilter
   blockedTimes?: Prisma.BlockedTimeListRelationFilter
+  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type CoworkingSpaceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -301,6 +315,7 @@ export type CoworkingSpaceScalarWhereWithAggregatesInput = {
   OR?: Prisma.CoworkingSpaceScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CoworkingSpaceScalarWhereWithAggregatesInput | Prisma.CoworkingSpaceScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"CoworkingSpace"> | string
+  ownerId?: Prisma.StringWithAggregatesFilter<"CoworkingSpace"> | string
   name?: Prisma.StringWithAggregatesFilter<"CoworkingSpace"> | string
   address?: Prisma.StringWithAggregatesFilter<"CoworkingSpace"> | string
   description?: Prisma.StringWithAggregatesFilter<"CoworkingSpace"> | string
@@ -323,10 +338,12 @@ export type CoworkingSpaceCreateInput = {
   updatedAt?: Date | string
   booking?: Prisma.BookingCreateNestedManyWithoutCoworkingSpaceInput
   blockedTimes?: Prisma.BlockedTimeCreateNestedManyWithoutCoworkingSpaceInput
+  owner: Prisma.UserCreateNestedOneWithoutCoworkingSpacesInput
 }
 
 export type CoworkingSpaceUncheckedCreateInput = {
   id?: string
+  ownerId: string
   name: string
   address: string
   description: string
@@ -351,10 +368,12 @@ export type CoworkingSpaceUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   booking?: Prisma.BookingUpdateManyWithoutCoworkingSpaceNestedInput
   blockedTimes?: Prisma.BlockedTimeUpdateManyWithoutCoworkingSpaceNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutCoworkingSpacesNestedInput
 }
 
 export type CoworkingSpaceUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
@@ -369,6 +388,7 @@ export type CoworkingSpaceUncheckedUpdateInput = {
 
 export type CoworkingSpaceCreateManyInput = {
   id?: string
+  ownerId: string
   name: string
   address: string
   description: string
@@ -393,6 +413,7 @@ export type CoworkingSpaceUpdateManyMutationInput = {
 
 export type CoworkingSpaceUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
@@ -401,6 +422,16 @@ export type CoworkingSpaceUncheckedUpdateManyInput = {
   type?: Prisma.EnumRoomTypeFieldUpdateOperationsInput | $Enums.RoomType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CoworkingSpaceListRelationFilter = {
+  every?: Prisma.CoworkingSpaceWhereInput
+  some?: Prisma.CoworkingSpaceWhereInput
+  none?: Prisma.CoworkingSpaceWhereInput
+}
+
+export type CoworkingSpaceOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -413,6 +444,7 @@ export type StringNullableListFilter<$PrismaModel = never> = {
 
 export type CoworkingSpaceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -429,6 +461,7 @@ export type CoworkingSpaceAvgOrderByAggregateInput = {
 
 export type CoworkingSpaceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -440,6 +473,7 @@ export type CoworkingSpaceMaxOrderByAggregateInput = {
 
 export type CoworkingSpaceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -456,6 +490,48 @@ export type CoworkingSpaceSumOrderByAggregateInput = {
 export type CoworkingSpaceScalarRelationFilter = {
   is?: Prisma.CoworkingSpaceWhereInput
   isNot?: Prisma.CoworkingSpaceWhereInput
+}
+
+export type CoworkingSpaceCreateNestedManyWithoutOwnerInput = {
+  create?: Prisma.XOR<Prisma.CoworkingSpaceCreateWithoutOwnerInput, Prisma.CoworkingSpaceUncheckedCreateWithoutOwnerInput> | Prisma.CoworkingSpaceCreateWithoutOwnerInput[] | Prisma.CoworkingSpaceUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.CoworkingSpaceCreateOrConnectWithoutOwnerInput | Prisma.CoworkingSpaceCreateOrConnectWithoutOwnerInput[]
+  createMany?: Prisma.CoworkingSpaceCreateManyOwnerInputEnvelope
+  connect?: Prisma.CoworkingSpaceWhereUniqueInput | Prisma.CoworkingSpaceWhereUniqueInput[]
+}
+
+export type CoworkingSpaceUncheckedCreateNestedManyWithoutOwnerInput = {
+  create?: Prisma.XOR<Prisma.CoworkingSpaceCreateWithoutOwnerInput, Prisma.CoworkingSpaceUncheckedCreateWithoutOwnerInput> | Prisma.CoworkingSpaceCreateWithoutOwnerInput[] | Prisma.CoworkingSpaceUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.CoworkingSpaceCreateOrConnectWithoutOwnerInput | Prisma.CoworkingSpaceCreateOrConnectWithoutOwnerInput[]
+  createMany?: Prisma.CoworkingSpaceCreateManyOwnerInputEnvelope
+  connect?: Prisma.CoworkingSpaceWhereUniqueInput | Prisma.CoworkingSpaceWhereUniqueInput[]
+}
+
+export type CoworkingSpaceUpdateManyWithoutOwnerNestedInput = {
+  create?: Prisma.XOR<Prisma.CoworkingSpaceCreateWithoutOwnerInput, Prisma.CoworkingSpaceUncheckedCreateWithoutOwnerInput> | Prisma.CoworkingSpaceCreateWithoutOwnerInput[] | Prisma.CoworkingSpaceUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.CoworkingSpaceCreateOrConnectWithoutOwnerInput | Prisma.CoworkingSpaceCreateOrConnectWithoutOwnerInput[]
+  upsert?: Prisma.CoworkingSpaceUpsertWithWhereUniqueWithoutOwnerInput | Prisma.CoworkingSpaceUpsertWithWhereUniqueWithoutOwnerInput[]
+  createMany?: Prisma.CoworkingSpaceCreateManyOwnerInputEnvelope
+  set?: Prisma.CoworkingSpaceWhereUniqueInput | Prisma.CoworkingSpaceWhereUniqueInput[]
+  disconnect?: Prisma.CoworkingSpaceWhereUniqueInput | Prisma.CoworkingSpaceWhereUniqueInput[]
+  delete?: Prisma.CoworkingSpaceWhereUniqueInput | Prisma.CoworkingSpaceWhereUniqueInput[]
+  connect?: Prisma.CoworkingSpaceWhereUniqueInput | Prisma.CoworkingSpaceWhereUniqueInput[]
+  update?: Prisma.CoworkingSpaceUpdateWithWhereUniqueWithoutOwnerInput | Prisma.CoworkingSpaceUpdateWithWhereUniqueWithoutOwnerInput[]
+  updateMany?: Prisma.CoworkingSpaceUpdateManyWithWhereWithoutOwnerInput | Prisma.CoworkingSpaceUpdateManyWithWhereWithoutOwnerInput[]
+  deleteMany?: Prisma.CoworkingSpaceScalarWhereInput | Prisma.CoworkingSpaceScalarWhereInput[]
+}
+
+export type CoworkingSpaceUncheckedUpdateManyWithoutOwnerNestedInput = {
+  create?: Prisma.XOR<Prisma.CoworkingSpaceCreateWithoutOwnerInput, Prisma.CoworkingSpaceUncheckedCreateWithoutOwnerInput> | Prisma.CoworkingSpaceCreateWithoutOwnerInput[] | Prisma.CoworkingSpaceUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.CoworkingSpaceCreateOrConnectWithoutOwnerInput | Prisma.CoworkingSpaceCreateOrConnectWithoutOwnerInput[]
+  upsert?: Prisma.CoworkingSpaceUpsertWithWhereUniqueWithoutOwnerInput | Prisma.CoworkingSpaceUpsertWithWhereUniqueWithoutOwnerInput[]
+  createMany?: Prisma.CoworkingSpaceCreateManyOwnerInputEnvelope
+  set?: Prisma.CoworkingSpaceWhereUniqueInput | Prisma.CoworkingSpaceWhereUniqueInput[]
+  disconnect?: Prisma.CoworkingSpaceWhereUniqueInput | Prisma.CoworkingSpaceWhereUniqueInput[]
+  delete?: Prisma.CoworkingSpaceWhereUniqueInput | Prisma.CoworkingSpaceWhereUniqueInput[]
+  connect?: Prisma.CoworkingSpaceWhereUniqueInput | Prisma.CoworkingSpaceWhereUniqueInput[]
+  update?: Prisma.CoworkingSpaceUpdateWithWhereUniqueWithoutOwnerInput | Prisma.CoworkingSpaceUpdateWithWhereUniqueWithoutOwnerInput[]
+  updateMany?: Prisma.CoworkingSpaceUpdateManyWithWhereWithoutOwnerInput | Prisma.CoworkingSpaceUpdateManyWithWhereWithoutOwnerInput[]
+  deleteMany?: Prisma.CoworkingSpaceScalarWhereInput | Prisma.CoworkingSpaceScalarWhereInput[]
 }
 
 export type CoworkingSpaceCreateamenitiesInput = {
@@ -507,6 +583,76 @@ export type CoworkingSpaceUpdateOneRequiredWithoutBlockedTimesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CoworkingSpaceUpdateToOneWithWhereWithoutBlockedTimesInput, Prisma.CoworkingSpaceUpdateWithoutBlockedTimesInput>, Prisma.CoworkingSpaceUncheckedUpdateWithoutBlockedTimesInput>
 }
 
+export type CoworkingSpaceCreateWithoutOwnerInput = {
+  id?: string
+  name: string
+  address: string
+  description: string
+  amenities?: Prisma.CoworkingSpaceCreateamenitiesInput | string[]
+  pricePerDay: number
+  type: $Enums.RoomType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  booking?: Prisma.BookingCreateNestedManyWithoutCoworkingSpaceInput
+  blockedTimes?: Prisma.BlockedTimeCreateNestedManyWithoutCoworkingSpaceInput
+}
+
+export type CoworkingSpaceUncheckedCreateWithoutOwnerInput = {
+  id?: string
+  name: string
+  address: string
+  description: string
+  amenities?: Prisma.CoworkingSpaceCreateamenitiesInput | string[]
+  pricePerDay: number
+  type: $Enums.RoomType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  booking?: Prisma.BookingUncheckedCreateNestedManyWithoutCoworkingSpaceInput
+  blockedTimes?: Prisma.BlockedTimeUncheckedCreateNestedManyWithoutCoworkingSpaceInput
+}
+
+export type CoworkingSpaceCreateOrConnectWithoutOwnerInput = {
+  where: Prisma.CoworkingSpaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.CoworkingSpaceCreateWithoutOwnerInput, Prisma.CoworkingSpaceUncheckedCreateWithoutOwnerInput>
+}
+
+export type CoworkingSpaceCreateManyOwnerInputEnvelope = {
+  data: Prisma.CoworkingSpaceCreateManyOwnerInput | Prisma.CoworkingSpaceCreateManyOwnerInput[]
+  skipDuplicates?: boolean
+}
+
+export type CoworkingSpaceUpsertWithWhereUniqueWithoutOwnerInput = {
+  where: Prisma.CoworkingSpaceWhereUniqueInput
+  update: Prisma.XOR<Prisma.CoworkingSpaceUpdateWithoutOwnerInput, Prisma.CoworkingSpaceUncheckedUpdateWithoutOwnerInput>
+  create: Prisma.XOR<Prisma.CoworkingSpaceCreateWithoutOwnerInput, Prisma.CoworkingSpaceUncheckedCreateWithoutOwnerInput>
+}
+
+export type CoworkingSpaceUpdateWithWhereUniqueWithoutOwnerInput = {
+  where: Prisma.CoworkingSpaceWhereUniqueInput
+  data: Prisma.XOR<Prisma.CoworkingSpaceUpdateWithoutOwnerInput, Prisma.CoworkingSpaceUncheckedUpdateWithoutOwnerInput>
+}
+
+export type CoworkingSpaceUpdateManyWithWhereWithoutOwnerInput = {
+  where: Prisma.CoworkingSpaceScalarWhereInput
+  data: Prisma.XOR<Prisma.CoworkingSpaceUpdateManyMutationInput, Prisma.CoworkingSpaceUncheckedUpdateManyWithoutOwnerInput>
+}
+
+export type CoworkingSpaceScalarWhereInput = {
+  AND?: Prisma.CoworkingSpaceScalarWhereInput | Prisma.CoworkingSpaceScalarWhereInput[]
+  OR?: Prisma.CoworkingSpaceScalarWhereInput[]
+  NOT?: Prisma.CoworkingSpaceScalarWhereInput | Prisma.CoworkingSpaceScalarWhereInput[]
+  id?: Prisma.StringFilter<"CoworkingSpace"> | string
+  ownerId?: Prisma.StringFilter<"CoworkingSpace"> | string
+  name?: Prisma.StringFilter<"CoworkingSpace"> | string
+  address?: Prisma.StringFilter<"CoworkingSpace"> | string
+  description?: Prisma.StringFilter<"CoworkingSpace"> | string
+  amenities?: Prisma.StringNullableListFilter<"CoworkingSpace">
+  pricePerDay?: Prisma.FloatFilter<"CoworkingSpace"> | number
+  type?: Prisma.EnumRoomTypeFilter<"CoworkingSpace"> | $Enums.RoomType
+  createdAt?: Prisma.DateTimeFilter<"CoworkingSpace"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"CoworkingSpace"> | Date | string
+}
+
 export type CoworkingSpaceCreateWithoutBookingInput = {
   id?: string
   name: string
@@ -518,10 +664,12 @@ export type CoworkingSpaceCreateWithoutBookingInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   blockedTimes?: Prisma.BlockedTimeCreateNestedManyWithoutCoworkingSpaceInput
+  owner: Prisma.UserCreateNestedOneWithoutCoworkingSpacesInput
 }
 
 export type CoworkingSpaceUncheckedCreateWithoutBookingInput = {
   id?: string
+  ownerId: string
   name: string
   address: string
   description: string
@@ -560,10 +708,12 @@ export type CoworkingSpaceUpdateWithoutBookingInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   blockedTimes?: Prisma.BlockedTimeUpdateManyWithoutCoworkingSpaceNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutCoworkingSpacesNestedInput
 }
 
 export type CoworkingSpaceUncheckedUpdateWithoutBookingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
@@ -586,10 +736,12 @@ export type CoworkingSpaceCreateWithoutBlockedTimesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   booking?: Prisma.BookingCreateNestedManyWithoutCoworkingSpaceInput
+  owner: Prisma.UserCreateNestedOneWithoutCoworkingSpacesInput
 }
 
 export type CoworkingSpaceUncheckedCreateWithoutBlockedTimesInput = {
   id?: string
+  ownerId: string
   name: string
   address: string
   description: string
@@ -628,9 +780,50 @@ export type CoworkingSpaceUpdateWithoutBlockedTimesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   booking?: Prisma.BookingUpdateManyWithoutCoworkingSpaceNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutCoworkingSpacesNestedInput
 }
 
 export type CoworkingSpaceUncheckedUpdateWithoutBlockedTimesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amenities?: Prisma.CoworkingSpaceUpdateamenitiesInput | string[]
+  pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRoomTypeFieldUpdateOperationsInput | $Enums.RoomType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking?: Prisma.BookingUncheckedUpdateManyWithoutCoworkingSpaceNestedInput
+}
+
+export type CoworkingSpaceCreateManyOwnerInput = {
+  id?: string
+  name: string
+  address: string
+  description: string
+  amenities?: Prisma.CoworkingSpaceCreateamenitiesInput | string[]
+  pricePerDay: number
+  type: $Enums.RoomType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CoworkingSpaceUpdateWithoutOwnerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amenities?: Prisma.CoworkingSpaceUpdateamenitiesInput | string[]
+  pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRoomTypeFieldUpdateOperationsInput | $Enums.RoomType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  booking?: Prisma.BookingUpdateManyWithoutCoworkingSpaceNestedInput
+  blockedTimes?: Prisma.BlockedTimeUpdateManyWithoutCoworkingSpaceNestedInput
+}
+
+export type CoworkingSpaceUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
@@ -641,6 +834,19 @@ export type CoworkingSpaceUncheckedUpdateWithoutBlockedTimesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   booking?: Prisma.BookingUncheckedUpdateManyWithoutCoworkingSpaceNestedInput
+  blockedTimes?: Prisma.BlockedTimeUncheckedUpdateManyWithoutCoworkingSpaceNestedInput
+}
+
+export type CoworkingSpaceUncheckedUpdateManyWithoutOwnerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  amenities?: Prisma.CoworkingSpaceUpdateamenitiesInput | string[]
+  pricePerDay?: Prisma.FloatFieldUpdateOperationsInput | number
+  type?: Prisma.EnumRoomTypeFieldUpdateOperationsInput | $Enums.RoomType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -685,6 +891,7 @@ export type CoworkingSpaceCountOutputTypeCountBlockedTimesArgs<ExtArgs extends r
 
 export type CoworkingSpaceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  ownerId?: boolean
   name?: boolean
   address?: boolean
   description?: boolean
@@ -695,11 +902,13 @@ export type CoworkingSpaceSelect<ExtArgs extends runtime.Types.Extensions.Intern
   updatedAt?: boolean
   booking?: boolean | Prisma.CoworkingSpace$bookingArgs<ExtArgs>
   blockedTimes?: boolean | Prisma.CoworkingSpace$blockedTimesArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.CoworkingSpaceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["coworkingSpace"]>
 
 export type CoworkingSpaceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  ownerId?: boolean
   name?: boolean
   address?: boolean
   description?: boolean
@@ -708,10 +917,12 @@ export type CoworkingSpaceSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   type?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["coworkingSpace"]>
 
 export type CoworkingSpaceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  ownerId?: boolean
   name?: boolean
   address?: boolean
   description?: boolean
@@ -720,10 +931,12 @@ export type CoworkingSpaceSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   type?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["coworkingSpace"]>
 
 export type CoworkingSpaceSelectScalar = {
   id?: boolean
+  ownerId?: boolean
   name?: boolean
   address?: boolean
   description?: boolean
@@ -734,23 +947,30 @@ export type CoworkingSpaceSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CoworkingSpaceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "address" | "description" | "amenities" | "pricePerDay" | "type" | "createdAt" | "updatedAt", ExtArgs["result"]["coworkingSpace"]>
+export type CoworkingSpaceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "address" | "description" | "amenities" | "pricePerDay" | "type" | "createdAt" | "updatedAt", ExtArgs["result"]["coworkingSpace"]>
 export type CoworkingSpaceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   booking?: boolean | Prisma.CoworkingSpace$bookingArgs<ExtArgs>
   blockedTimes?: boolean | Prisma.CoworkingSpace$blockedTimesArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.CoworkingSpaceCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type CoworkingSpaceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type CoworkingSpaceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type CoworkingSpaceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type CoworkingSpaceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
 
 export type $CoworkingSpacePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CoworkingSpace"
   objects: {
     booking: Prisma.$BookingPayload<ExtArgs>[]
     blockedTimes: Prisma.$BlockedTimePayload<ExtArgs>[]
+    owner: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    ownerId: string
     name: string
     address: string
     description: string
@@ -1155,6 +1375,7 @@ export interface Prisma__CoworkingSpaceClient<T, Null = never, ExtArgs extends r
   readonly [Symbol.toStringTag]: "PrismaPromise"
   booking<T extends Prisma.CoworkingSpace$bookingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CoworkingSpace$bookingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   blockedTimes<T extends Prisma.CoworkingSpace$blockedTimesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CoworkingSpace$blockedTimesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlockedTimePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1185,6 +1406,7 @@ export interface Prisma__CoworkingSpaceClient<T, Null = never, ExtArgs extends r
  */
 export interface CoworkingSpaceFieldRefs {
   readonly id: Prisma.FieldRef<"CoworkingSpace", 'String'>
+  readonly ownerId: Prisma.FieldRef<"CoworkingSpace", 'String'>
   readonly name: Prisma.FieldRef<"CoworkingSpace", 'String'>
   readonly address: Prisma.FieldRef<"CoworkingSpace", 'String'>
   readonly description: Prisma.FieldRef<"CoworkingSpace", 'String'>
@@ -1442,6 +1664,10 @@ export type CoworkingSpaceCreateManyAndReturnArgs<ExtArgs extends runtime.Types.
    */
   data: Prisma.CoworkingSpaceCreateManyInput | Prisma.CoworkingSpaceCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CoworkingSpaceIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1512,6 +1738,10 @@ export type CoworkingSpaceUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.
    * Limit how many CoworkingSpaces to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CoworkingSpaceIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

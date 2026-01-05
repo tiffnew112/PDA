@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { UserModule } from './user/user.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { CoworkingSpaceModule } from './coworking-space/coworking-space.module.js';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { AuthModule } from './auth/auth.module.js';
     PrismaModule,
     UserModule,
     AuthModule,
+    CoworkingSpaceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

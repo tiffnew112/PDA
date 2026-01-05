@@ -1,9 +1,10 @@
 import {
   BadRequestException,
+  ConflictException,
   ForbiddenException,
   Injectable,
 } from '@nestjs/common';
-import { UserService } from '../user/user.service.js';
+import { UserRepository } from '../user/user.repository.js';
 import { CreateUserDto } from '../user/dto/create-user.dto.js';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
@@ -11,16 +12,18 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly userService: UserService,
+    private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,
   ) {}
 
-  register(data: CreateUserDto) {
-    return this.userService.create(data);
+  async register(data: CreateUserDto) {
+    const user = await this.userRepository.findByEmail(data.email);
+    if (user) throw new ConflictException('Email already registered');
+    return this.userRepository.createUser(data);
   }
 
   async validateUser(email: string, password: string) {
-    const user = await this.userService.findByEmail(email);
+    const user = await this.userRepository.findByEmail(email);
     if (user && bcrypt.compareSync(password, user.password)) {
       return user;
     }
@@ -33,7 +36,7 @@ export class AuthService {
     const { access_token, refresh_token, hashedRt } =
       await this.generateToken(payload);
 
-    await this.userService.update(user.userId, { refresh_token: hashedRt });
+    await this.userRepository.update(user.userId, { refresh_token: hashedRt });
 
     return {
       access_token,
@@ -53,7 +56,7 @@ export class AuthService {
   }
 
   async refreshToken(userId: string, token: string) {
-    const user = await this.userService.findOne(userId);
+    const user = await this.userRepository.findOne(userId);
     if (!user || !user.refresh_token)
       throw new BadRequestException('Account not found');
 
@@ -69,7 +72,7 @@ export class AuthService {
     const { refresh_token, access_token, hashedRt } =
       await this.generateToken(payload);
 
-    await this.userService.update(user.id, { refresh_token: hashedRt });
+    await this.userRepository.update(user.id, { refresh_token: hashedRt });
 
     return {
       access_token,

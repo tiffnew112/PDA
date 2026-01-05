@@ -27,12 +27,24 @@ export class UserRepository {
     });
   }
 
-  findAll() {
-    return this.prisma.user.findMany();
+  async findAll() {
+    const user = await this.prisma.user.findMany();
+    return user.map((item) => ({
+      id: item.id,
+      name: item.name,
+      email: item.email,
+      phone: item.phone,
+      role: item.role,
+    }));
   }
 
-  findOne(id: string) {
-    return this.prisma.user.findFirst({ where: { id } });
+  async findOne(id: string) {
+    const user = await this.prisma.user.findFirst({ where: { id } });
+    if (user) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...rest } = user;
+      return rest;
+    }
   }
 
   findByEmail(email: string) {
@@ -44,5 +56,9 @@ export class UserRepository {
       where: { id },
       data,
     });
+  }
+
+  delete(id: string) {
+    return this.prisma.user.delete({ where: { id } });
   }
 }

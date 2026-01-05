@@ -91,6 +91,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const CoworkingSpaceScalarFieldEnum = {
   id: 'id',
+  ownerId: 'ownerId',
   name: 'name',
   address: 'address',
   description: 'description',

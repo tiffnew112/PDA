@@ -1,33 +1,59 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto.js';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { UserRepository } from './user.repository.js';
+import { UserRole } from '../generated/prisma/enums.js';
 
 @Injectable()
 export class UserService {
   constructor(private readonly repo: UserRepository) {}
 
-  create(createUserDto: CreateUserDto) {
-    return this.repo.createUser(createUserDto);
+  async findAll() {
+    const user = await this.repo.findAll();
+    if (!user) {
+      throw new NotFoundException('Users not found');
+    }
+    return user;
   }
 
-  findAll() {
-    return this.repo.findAll();
+  async findOne(id: string) {
+    const user = await this.repo.findOne(id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
   }
 
-  findOne(id: string) {
-    return this.repo.findOne(id);
+  async findByEmail(email: string) {
+    const user = await this.repo.findByEmail(email);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
   }
 
-  findByEmail(email: string) {
-    return this.repo.findByEmail(email);
-  }
-
-  update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto, userId: string) {
+    const user = await this.repo.findOne(id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    if (user.id !== userId) {
+      throw new ForbiddenException('You are not allowed to update this user');
+    }
     return this.repo.update(id, updateUserDto);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(id: string, data: { userId: string; role: UserRole }) {
+    const user = await this.repo.findOne(id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    if (user.id !== data.userId && data.role !== UserRole.ADMIN) {
+      throw new ForbiddenException('You are not allowed to delete this user');
+    }
+    return this.repo.delete(id);
   }
 }
