@@ -13,9 +13,9 @@ import { CoworkingSpaceService } from './coworking-space.service.js';
 import { CreateCoworkingSpaceDto } from './dto/create-coworking-space.dto.js';
 import { UpdateCoworkingSpaceDto } from './dto/update-coworking-space.dto.js';
 import { JwtAuthGuard } from '../auth/jwt.auth-guard.js';
-import { RolesGuard } from '../auth/guards/roles.guard.js';
-import { Roles } from '../auth/decorators/roles.decorator.js';
-import type { reqProp } from '../auth/common/types/types.js';
+import { RolesGuard } from '../common/guards/roles.guard.js';
+import { Roles } from '../common/decorators/roles.decorator.js';
+import type { reqProp } from '../common/types/types.js';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('coworking-space')

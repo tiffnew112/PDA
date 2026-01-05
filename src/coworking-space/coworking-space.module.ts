@@ -9,5 +9,6 @@ import { UserModule } from '../user/user.module.js';
   imports: [PrismaModule, UserModule],
   controllers: [CoworkingSpaceController],
   providers: [CoworkingSpaceService, CoworkingSpaceRepository],
+  exports: [CoworkingSpaceService, CoworkingSpaceRepository],
 })
 export class CoworkingSpaceModule {}
