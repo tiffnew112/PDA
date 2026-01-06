@@ -13,6 +13,7 @@ export class AuthController {
 
   @Post('login')
   login(@Body() data: { email: string; password: string }) {
+    console.log(process.env.DATABASE_URL);
     return this.authService.userLogin(data.email, data.password);
   }
 

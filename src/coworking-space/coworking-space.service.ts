@@ -71,7 +71,6 @@ export class CoworkingSpaceService {
       name,
       location,
     );
-    console.log(name, location);
     if (workspaces.length === 0)
       throw new NotFoundException('No coworking spaces found');
     return workspaces;
