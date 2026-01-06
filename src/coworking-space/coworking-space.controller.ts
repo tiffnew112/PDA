@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Req,
+  Query,
 } from '@nestjs/common';
 import { CoworkingSpaceService } from './coworking-space.service.js';
 import { CreateCoworkingSpaceDto } from './dto/create-coworking-space.dto.js';
@@ -31,7 +32,29 @@ export class CoworkingSpaceController {
     return this.coworkingSpaceService.create(createCoworkingSpaceDto, req.user);
   }
 
+  @Get('unverified')
+  @Roles('ADMIN')
+  findAllNotVerified() {
+    return this.coworkingSpaceService.findAllUnverified();
+  }
+
+  @Get('verified')
+  @Roles('USER')
+  findAllVerified() {
+    return this.coworkingSpaceService.findAllVerified();
+  }
+
+  @Get('search')
+  @Roles('USER', 'PROVIDER', 'ADMIN')
+  findByQuery(
+    @Query('name') name: string,
+    @Query('location') location: string,
+  ) {
+    return this.coworkingSpaceService.findCoworkingSpaceByQuery(name, location);
+  }
+
   @Get()
+  @Roles('ADMIN')
   findAll() {
     return this.coworkingSpaceService.findAll();
   }
@@ -45,12 +68,6 @@ export class CoworkingSpaceController {
   @Roles('PROVIDER')
   getWorkspacesByUserId(@Param('id') id: string) {
     return this.coworkingSpaceService.getWorkspacesByUserId(id);
-  }
-
-  @Get('unverified')
-  @Roles('ADMIN')
-  findAllNotVerified() {
-    return this.coworkingSpaceService.findAllUnverified();
   }
 
   @Patch(':id')

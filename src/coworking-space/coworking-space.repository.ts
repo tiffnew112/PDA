@@ -38,6 +38,23 @@ export class CoworkingSpaceRepository {
     });
   }
 
+  findAllverified() {
+    return this.prisma.coworkingSpace.findMany({
+      where: { isVerified: true },
+    });
+  }
+
+  findCoworkingSpaceByQuery(name?: string, location?: string) {
+    return this.prisma.coworkingSpace.findMany({
+      where: {
+        name: { contains: name, mode: 'insensitive' },
+        address: { contains: location, mode: 'insensitive' },
+        isActive: true,
+        isVerified: true,
+      },
+    });
+  }
+
   update(id: string, data: UpdateCoworkingSpaceDto) {
     return this.prisma.coworkingSpace.update({
       where: { id },
