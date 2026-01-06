@@ -10,6 +10,12 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.useLogger(app.get(Logger));
   app.use(helmet());
+  app.enableCors({
+    origin: 'https://workbase1.netlify.app/',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    allowedHeaders: 'Content-Type, Accept',
+  });
 
   await app.listen(process.env.PORT ?? 3000);
 }
