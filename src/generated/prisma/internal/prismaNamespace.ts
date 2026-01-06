@@ -858,7 +858,6 @@ export const BookingScalarFieldEnum = {
   endTime: 'endTime',
   totalPrice: 'totalPrice',
   status: 'status',
-  paymentStatus: 'paymentStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -882,8 +881,9 @@ export const PaymentScalarFieldEnum = {
   id: 'id',
   bookingId: 'bookingId',
   amount: 'amount',
-  method: 'method',
-  stripePaymentId: 'stripePaymentId',
+  provider: 'provider',
+  externalId: 'externalId',
+  status: 'status',
   createAt: 'createAt'
 } as const
 
@@ -1012,20 +1012,6 @@ export type ListEnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
- * Reference to a field of type 'PaymentStatus'
- */
-export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus'>
-    
-
-
-/**
- * Reference to a field of type 'PaymentStatus[]'
- */
-export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'BlockReason'
  */
 export type EnumBlockReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockReason'>
@@ -1036,6 +1022,20 @@ export type EnumBlockReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'BlockReason[]'
  */
 export type ListEnumBlockReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockReason[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PaymentStatus'
+ */
+export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PaymentStatus[]'
+ */
+export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
     
 
 

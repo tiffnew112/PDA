@@ -55,6 +55,12 @@ export class CoworkingSpaceRepository {
     });
   }
 
+  checkOwner(id: string, ownerId: string) {
+    return this.prisma.coworkingSpace.findFirst({
+      where: { id, ownerId },
+    });
+  }
+
   update(id: string, data: UpdateCoworkingSpaceDto) {
     return this.prisma.coworkingSpace.update({
       where: { id },

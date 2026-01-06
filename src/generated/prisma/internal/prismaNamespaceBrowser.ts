@@ -115,7 +115,6 @@ export const BookingScalarFieldEnum = {
   endTime: 'endTime',
   totalPrice: 'totalPrice',
   status: 'status',
-  paymentStatus: 'paymentStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -139,8 +138,9 @@ export const PaymentScalarFieldEnum = {
   id: 'id',
   bookingId: 'bookingId',
   amount: 'amount',
-  method: 'method',
-  stripePaymentId: 'stripePaymentId',
+  provider: 'provider',
+  externalId: 'externalId',
+  status: 'status',
   createAt: 'createAt'
 } as const
 

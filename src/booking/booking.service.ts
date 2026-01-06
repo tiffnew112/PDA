@@ -57,12 +57,46 @@ export class BookingService {
     return result;
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, user: { userId: string; role: string }) {
     const result = await this.repo.findOne(id);
     if (!result) {
       throw new NotFoundException(`Booking with ID ${id} not found`);
     }
+    if (user.role !== 'ADMIN' && result.userId !== user.userId) {
+      throw new ForbiddenException(
+        'You are not allowed to access this booking',
+      );
+    }
     return result;
+  }
+
+  async findAllMyBookings(userId: string) {
+    const result = await this.repo.findAllMyBookings(userId);
+    if (!result) {
+      throw new NotFoundException('No bookings found for this user');
+    }
+    return result;
+  }
+
+  async findByUserAndSpace(
+    user: { userId: string; role: string },
+    coworkingSpaceId: string,
+  ) {
+    if (user.role !== 'PROVIDER') {
+      throw new ForbiddenException(
+        'You are not allowed to access bookings for this coworking space',
+      );
+    }
+    const space = await this.coworkingSpaceRepo.checkOwner(
+      coworkingSpaceId,
+      user.userId,
+    );
+    if (!space) {
+      throw new ForbiddenException(
+        'You are not allowed to access bookings for this coworking space',
+      );
+    }
+    return this.repo.findBySpaceId(coworkingSpaceId);
   }
 
   async update(

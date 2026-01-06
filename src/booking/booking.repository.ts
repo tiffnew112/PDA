@@ -31,10 +31,22 @@ export class BookingRepository {
     });
   }
 
+  findAllMyBookings(userId: string) {
+    return this.prisma.booking.findMany({
+      where: { userId },
+    });
+  }
+
   findUnavailableBookings(coworkingSpaceId: string) {
     return this.prisma.booking.findMany({
       where: { coworkingSpaceId },
       select: { startTime: true, endTime: true },
+    });
+  }
+
+  findBySpaceId(coworkingSpaceId: string) {
+    return this.prisma.booking.findMany({
+      where: { coworkingSpaceId },
     });
   }
 

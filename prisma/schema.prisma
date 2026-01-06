@@ -84,11 +84,10 @@ model Booking {
   userId           String
   coworkingSpaceId String
 
-  startTime     DateTime      @db.Date
-  endTime       DateTime      @db.Date
-  totalPrice    Float
-  status        BookingStatus @default(PENDING)
-  paymentStatus PaymentStatus @default(PENDING)
+  startTime  DateTime      @db.Date
+  endTime    DateTime      @db.Date
+  totalPrice Float
+  status     BookingStatus @default(PENDING)
 
   user           User           @relation(fields: [userId], references: [id])
   coworkingSpace CoworkingSpace @relation(fields: [coworkingSpaceId], references: [id])
@@ -111,11 +110,12 @@ model BlockedTime {
 }
 
 model Payment {
-  id              String  @id @default(uuid())
-  bookingId       String  @unique
-  amount          Float
-  method          String
-  stripePaymentId String?
+  id         String        @id @default(uuid())
+  bookingId  String        @unique
+  amount     Float
+  provider   String // "xendit"
+  externalId String
+  status     PaymentStatus @default(PENDING)
 
   booking  Booking  @relation(fields: [bookingId], references: [id])
   createAt DateTime @default(now())
