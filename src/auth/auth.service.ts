@@ -18,6 +18,7 @@ export class AuthService {
 
   async register(data: CreateUserDto) {
     const user = await this.userRepository.findByEmail(data.email);
+    console.log(data);
     if (user) throw new ConflictException('Email already registered');
     return this.userRepository.createUser(data);
   }
@@ -45,6 +46,7 @@ export class AuthService {
   }
 
   async userLogin(email: string, password: string) {
+    console.log(email, password);
     const user = await this.validateUser(email, password);
     if (!user) throw new BadRequestException('Email or password invalid');
 

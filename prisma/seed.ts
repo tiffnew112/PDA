@@ -1,6 +1,6 @@
 import { UserRole, RoomType } from '../src/generated/prisma/enums.js';
-import { PrismaClient } from '../src/generated/prisma/client.js';
 import { PrismaService } from '../src/prisma/prisma.service.js';
+import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaService();
 
@@ -16,6 +16,8 @@ async function main() {
   await prisma.coworkingSpace.deleteMany();
   await prisma.user.deleteMany();
 
+  const passwordHash = await bcrypt.hash('password123', 10);
+
   /**
    * USERS
    */
@@ -23,7 +25,7 @@ async function main() {
     data: {
       name: 'Admin User',
       email: 'admin@example.com',
-      password: 'password123',
+      password: passwordHash,
       phone: '0800000001',
       role: UserRole.ADMIN,
     },
@@ -33,7 +35,7 @@ async function main() {
     data: {
       name: 'Provider One',
       email: 'provider1@example.com',
-      password: 'password123',
+      password: passwordHash,
       phone: '0800000002',
       role: UserRole.PROVIDER,
     },
@@ -43,7 +45,7 @@ async function main() {
     data: {
       name: 'Provider Two',
       email: 'provider2@example.com',
-      password: 'password123',
+      password: passwordHash,
       phone: '0800000003',
       role: UserRole.PROVIDER,
     },
@@ -53,7 +55,7 @@ async function main() {
     data: {
       name: 'User One',
       email: 'user1@example.com',
-      password: 'password123',
+      password: passwordHash,
       phone: '0800000004',
       role: UserRole.USER,
     },
@@ -63,7 +65,7 @@ async function main() {
     data: {
       name: 'User Two',
       email: 'user2@example.com',
-      password: 'password123',
+      password: passwordHash,
       phone: '0800000005',
       role: UserRole.USER,
     },
