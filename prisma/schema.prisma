@@ -68,6 +68,8 @@ model CoworkingSpace {
   amenities   String[]
   pricePerDay Float
   type        RoomType
+  isActive    Boolean  @default(true)
+  isVerified  Boolean  @default(false)
 
   booking      Booking[]
   blockedTimes BlockedTime[]

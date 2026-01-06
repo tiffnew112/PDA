@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -30,6 +31,12 @@ export class BookingService {
     if (!checkCoworkingSpace) {
       throw new NotFoundException('Coworking space not found');
     }
+    if (checkCoworkingSpace.isActive === false) {
+      throw new BadRequestException('Coworking space is not active');
+    }
+    if (checkCoworkingSpace.isVerified === false) {
+      throw new BadRequestException('Coworking space is not verified');
+    }
     if (user.role !== 'USER') {
       throw new BadRequestException(
         'Only users with USER role can create bookings',
@@ -38,19 +45,53 @@ export class BookingService {
     return this.repo.createBooking(createBookingDto, user.userId);
   }
 
-  findAll() {
-    return `This action returns all booking`;
+  findUnavailableBookings(coworkingSpaceId: string) {
+    return this.repo.findUnavailableBookings(coworkingSpaceId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} booking`;
+  async findAll() {
+    const result = await this.repo.findAll();
+    if (!result) {
+      throw new NotFoundException('No bookings found');
+    }
+    return result;
   }
 
-  update(id: number, updateBookingDto: UpdateBookingDto) {
-    return `This action updates a #${id} booking`;
+  async findOne(id: string) {
+    const result = await this.repo.findOne(id);
+    if (!result) {
+      throw new NotFoundException(`Booking with ID ${id} not found`);
+    }
+    return result;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} booking`;
+  async update(
+    id: string,
+    updateBookingDto: UpdateBookingDto,
+    user: { userId: string; role: string },
+  ) {
+    const booking = await this.repo.findOne(id);
+    if (!booking) {
+      throw new NotFoundException('Booking not found');
+    }
+    if (user.role !== 'ADMIN' && booking.userId !== user.userId) {
+      throw new ForbiddenException(
+        'You are not allowed to update this booking',
+      );
+    }
+    return this.repo.update(id, updateBookingDto);
+  }
+
+  async remove(id: string, user: { userId: string; role: string }) {
+    const booking = await this.repo.findOne(id);
+    if (!booking) {
+      throw new NotFoundException('Booking not found');
+    }
+    if (user.role !== 'ADMIN' && booking.userId !== user.userId) {
+      throw new ForbiddenException(
+        'You are not allowed to delete this booking',
+      );
+    }
+    return this.repo.delete(id);
   }
 }

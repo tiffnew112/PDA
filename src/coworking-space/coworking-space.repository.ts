@@ -21,11 +21,7 @@ export class CoworkingSpaceRepository {
       where: { id },
       include: { coworkingSpaces: true },
     });
-    if (result) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...rest } = result;
-      return rest;
-    }
+    return result;
   }
 
   findAll() {
@@ -34,6 +30,12 @@ export class CoworkingSpaceRepository {
 
   findOne(id: string) {
     return this.prisma.coworkingSpace.findUnique({ where: { id } });
+  }
+
+  findAllUnverified() {
+    return this.prisma.coworkingSpace.findMany({
+      where: { isVerified: false },
+    });
   }
 
   update(id: string, data: UpdateCoworkingSpaceDto) {
@@ -45,5 +47,12 @@ export class CoworkingSpaceRepository {
 
   delete(id: string) {
     return this.prisma.coworkingSpace.delete({ where: { id } });
+  }
+
+  verifyCoworkingSpace(id: string) {
+    return this.prisma.coworkingSpace.update({
+      where: { id },
+      data: { isVerified: true },
+    });
   }
 }

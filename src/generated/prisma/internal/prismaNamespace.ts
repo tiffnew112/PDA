@@ -841,6 +841,8 @@ export const CoworkingSpaceScalarFieldEnum = {
   amenities: 'amenities',
   pricePerDay: 'pricePerDay',
   type: 'type',
+  isActive: 'isActive',
+  isVerified: 'isVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -985,6 +987,13 @@ export type EnumRoomTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'RoomType[]'
  */
 export type ListEnumRoomTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoomType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

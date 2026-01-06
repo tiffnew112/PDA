@@ -47,6 +47,12 @@ export class CoworkingSpaceController {
     return this.coworkingSpaceService.getWorkspacesByUserId(id);
   }
 
+  @Get('unverified')
+  @Roles('ADMIN')
+  findAllNotVerified() {
+    return this.coworkingSpaceService.findAllUnverified();
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -63,5 +69,11 @@ export class CoworkingSpaceController {
   @Delete(':id')
   remove(@Param('id') id: string, @Req() req: { user: reqProp }) {
     return this.coworkingSpaceService.remove(id, req.user);
+  }
+
+  @Patch('verify/:id')
+  @Roles('ADMIN')
+  verifyCoworkingSpace(@Param('id') id: string) {
+    return this.coworkingSpaceService.verifyCoworkingSpace(id);
   }
 }

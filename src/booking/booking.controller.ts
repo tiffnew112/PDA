@@ -36,16 +36,25 @@ export class BookingController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.bookingService.findOne(+id);
+    return this.bookingService.findOne(id);
+  }
+
+  @Get('unavailable/:coworkingSpaceId')
+  findUnavailableBookings(@Param('coworkingSpaceId') coworkingSpaceId: string) {
+    return this.bookingService.findUnavailableBookings(coworkingSpaceId);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBookingDto: UpdateBookingDto) {
-    return this.bookingService.update(+id, updateBookingDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateBookingDto: UpdateBookingDto,
+    @Req() req: { user: reqProp },
+  ) {
+    return this.bookingService.update(id, updateBookingDto, req.user);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.bookingService.remove(+id);
+  remove(@Param('id') id: string, @Req() req: { user: reqProp }) {
+    return this.bookingService.remove(id, req.user);
   }
 }

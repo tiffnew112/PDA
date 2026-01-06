@@ -52,6 +52,12 @@ export class CoworkingSpaceService {
     return workspaces;
   }
 
+  async findAllUnverified() {
+    const workspaces = await this.repo.findAllUnverified();
+    if (!workspaces) throw new NotFoundException('No coworking spaces found');
+    return workspaces;
+  }
+
   async update(
     id: string,
     updateCoworkingSpaceDto: UpdateCoworkingSpaceDto,
@@ -80,5 +86,13 @@ export class CoworkingSpaceService {
       );
     }
     return this.repo.delete(id);
+  }
+
+  async verifyCoworkingSpace(id: string) {
+    const workspace = await this.repo.findOne(id);
+    if (!workspace) {
+      throw new NotFoundException('Coworking space not found');
+    }
+    return this.repo.verifyCoworkingSpace(id);
   }
 }
